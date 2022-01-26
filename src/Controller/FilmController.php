@@ -42,16 +42,16 @@ class FilmController extends AbstractController
             $omdb = new OmdbAPI($client);
             $description = $omdb->getDescriptionByName($film->getName());
 
-            if(is_null($description)){
-                return $this->redirectToRoute("erreur");
+            if (is_null($description)) {
+                return $this->redirectToRoute("error");
             }
 
             $film->setDescription($description);
             $film->setName(ucwords($film->getName()));
             $man = $doctrine->getManager();
             $man->persist($film);
-            $man->flush() ;
-            return $this->redirectToRoute('success');
+            $man->flush();
+            return $this->redirectToRoute("success");
         }
 
         return $this->renderForm('ajouter.html.twig', [
@@ -68,9 +68,41 @@ class FilmController extends AbstractController
         );
     }
 
-    public function success() : Response{
-        return new Response(
-            '<html><body>PARFAIT</body></html>'
-        );
+    public function success(): Response
+    {
+        return $this->render('success.html.twig');
+    }
+
+    public function error(): Response
+    {
+        return $this->render('error.html.twig');
+    }
+
+    public function delete(ManagerRegistry $doctrine): Response
+    {
+
+
+        if (isset($_GET["code"]) && isset($_GET["idfilm"])) {
+
+            $code = $_GET["code"];
+            $idFilm = intval($_GET["idfilm"]);
+            $adminCode = $this->getParameter("admin_code");
+
+            if ($adminCode === $code) {
+
+                $repos = $doctrine->getRepository(Film::class);
+                $film = $repos->findOneBy(["id" => $idFilm]);
+
+                $man = $doctrine->getManager();
+                $man->remove($film);
+                $man->flush();
+
+                return $this->render('deletesuccess.html.twig');
+            }
+
+            return $this->render('deleteerror.html.twig');
+        }
+
+        return $this->redirectToRoute("index");
     }
 }

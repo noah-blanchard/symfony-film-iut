@@ -29,8 +29,13 @@ class OmdbAPI
 
         $content = $response->toArray();
 
+        var_dump($content);
 
-        return $content["Plot"];
+        if ($content["Response"] === "False") {
+            
+            return null;
+        } else {
+            return $content["Plot"];
+        }
     }
 }
-?>

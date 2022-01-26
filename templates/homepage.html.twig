@@ -2,14 +2,43 @@
 
 {% block body %}
 
-<ul>
+{% if films is empty %}
+<h3>Aucun film dans la BDD</h3>
+{% else %}
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Description</th>
+    <th>Note</th>
+    <th>Nombre de Votants</th>
+    <th>Supprimer</th>
+  </tr>
 
-{% for film in films %}
+  {% for film in films %}
+  <tr>
+    <td>{{ film.name }}</td>
+    <td>{{ film.description }}</td>
+    <td>{{ film.score }}</td>
+    <td>{{ film.votersNumber }}</td>
+    <td>
+      <form method="get" action="delete">
+        <input
+          type="text"
+          id="code"
+          name="code"
+          placeholder="Code Admin"
+        /><input
+          hidden
+          type="text"
+          name="idfilm"
+          id="idfilm"
+          value="{{ film.id }}"
+        /><button type="submit">Suppr</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 
-    <li>{{film.name}} {{film.description}}</li>
-
-{% endfor %}
-
-</ul>
-
+{% endif %}
 {% endblock %}
