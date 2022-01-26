@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<ul>
+
+{% for film in films %}
+
+    <li>{{film.name}} {{film.description}}</li>
+
+{% endfor %}
+
+</ul>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+index:
+    path: /
+    controller: App\Controller\FilmController::displayFilms
+
+ajouter:
+    path: /ajouter
+    controller: App\Controller\FilmController::new
+
+success:
+    path: /success
+    controller: App\Controller\FilmController::success
