@@ -17,3 +17,7 @@ error:
 delete:
     path: /delete
     controller: App\Controller\FilmController::delete
+
+addfile:
+    path: /addfile
+    controller: App\Controller\FilmController::massImport

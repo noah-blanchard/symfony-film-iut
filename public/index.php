@@ -1,3 +1,6 @@
+<link rel="stylesheet" link="index.css" />
+
+
 <?php
 
 use App\Kernel;

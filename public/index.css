@@ -1,0 +1,21 @@
+
+th{
+    border:solid;
+    padding:20px;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+a{
+    margin:20px;
+}
+
+td{
+    border:solid;
+    padding: 20px
+}

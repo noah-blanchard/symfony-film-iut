@@ -29,8 +29,6 @@ class OmdbAPI
 
         $content = $response->toArray();
 
-        var_dump($content);
-
         if ($content["Response"] === "False") {
             
             return null;
